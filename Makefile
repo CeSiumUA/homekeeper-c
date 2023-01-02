@@ -1,11 +1,13 @@
 GNULIBS = -ltelebot
-CFLAGS = -Wall -Werror
+INCLUDES = -I /inc
+CFLAGS = $(INCLUDES) -Wall -Werror
+SRCS = src/*.c
 
 .PHONY:
 	build
 
 build:
-	cc -o main main.c $(CFLAGS) $(GNULIBS)
+	cc -o main $(SRCS) $(CFLAGS) $(GNULIBS)
 
 clean:
 	rm ./main

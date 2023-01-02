@@ -31,6 +31,8 @@ int main(void){
         return -1;
     }
 
+    telebot_destroy(handle);
+
     printf("bot instance created successfully\n");
     return 0;
 }
