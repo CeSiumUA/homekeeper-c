@@ -1,5 +1,5 @@
 GNULIBS = -ltelebot
-INCLUDES = -I /inc
+INCLUDES = -Iinc
 CFLAGS = $(INCLUDES) -Wall -Werror
 SRCS = src/*.c
 
