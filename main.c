@@ -1,3 +1,7 @@
-//
-// Created by fedir on 1/1/23.
-//
+#include <stdio.h>
+#include <telebot/telebot.h>
+
+int main(void){
+
+    printf("test");
+}
