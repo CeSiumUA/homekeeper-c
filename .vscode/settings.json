@@ -1,0 +1,16 @@
+{
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/fedir/projects/homekeeper-relay",
+            "binaryPath": "/home/fedir/projects/homekeeper-relay/a.out",
+            "files.associations": {
+                "config.h": "c",
+                "logger.h": "c",
+                "main.h": "c",
+                "server.h": "c",
+                "tlbot.h": "c"
+            },
+            "binaryArgs": []
+        }
+    ]
+}
