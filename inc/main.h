@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "tlbot.h"
 #include "logger.h"
+#include "server.h"
 
 void free_resources(void);
 

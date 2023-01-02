@@ -1,13 +1,15 @@
-GNULIBS = -ltelebot
+GCC = gcc
+TLLIB = -ltelebot
 INCLUDES = -Iinc
-CFLAGS = $(INCLUDES) -Wall -Werror
+CFLAGS = $(INCLUDES) -g -Wall -Werror -o a.out
 SRCS = src/*.c
 
-.PHONY:
-	build
+.PHONY: build
+
+all: build
 
 build:
-	cc -o main $(SRCS) $(CFLAGS) $(GNULIBS)
+	$(GCC) $(SRCS) $(CFLAGS) $(TLLIB)
 
 clean:
-	rm ./main
+	rm ./a.out

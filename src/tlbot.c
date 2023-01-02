@@ -1,25 +1,12 @@
 #include "tlbot.h"
 
+#define TOKEN_BUFFER_HANDLE     1024
+
 static telebot_handler_t handle;
 
 bool initialize_tlbot(void){
-    FILE *fp = fopen(".token", "r");
-
-    if(fp == NULL){
-        write_logn("token file not found!");
-        return false;
-    }
-
-    char token[1024];
-
-    if(fscanf(fp, "%s", token) == 0){
-        write_logn("failed to read a token!");
-        fclose(fp);
-        return false;
-    }
-
-    fclose(fp);
-    write_logn("token read successfully! token: %s", token);
+    char token[TOKEN_BUFFER_HANDLE];
+    load_conf_value("token", token, TOKEN_BUFFER_HANDLE);
 
     telebot_error_e create_err = telebot_create(&handle, token);
 

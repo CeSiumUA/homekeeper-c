@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <telebot/telebot.h>
 #include "logger.h"
+#include "config.h"
 
 bool initialize_tlbot(void);
 void destroy_bot(void);
