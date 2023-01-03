@@ -55,6 +55,6 @@ Module.symvers
 Mkfile.old
 dkms.conf
 cmake-build-debug
-.token
+.TL_TOKEN
 homekeeper_relay
 main
