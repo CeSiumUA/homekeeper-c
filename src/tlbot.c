@@ -6,7 +6,7 @@ static telebot_handler_t handle;
 
 bool initialize_tlbot(void){
     char token[TOKEN_BUFFER_HANDLE];
-    load_conf_value("token", token, TOKEN_BUFFER_HANDLE);
+    load_conf_value("TL_TOKEN", token, TOKEN_BUFFER_HANDLE);
 
     telebot_error_e create_err = telebot_create(&handle, token);
 
