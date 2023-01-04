@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-void write_log(const char * txt, ...);
-void write_logn(const char * txt, ...);
+void log_write(const char * txt, ...);
+void log_writen(const char * txt, ...);
 
 #endif

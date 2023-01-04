@@ -1,6 +1,6 @@
 #include "logger.h"
 
-void write_log(const char * txt, ...){
+void log_write(const char * txt, ...){
     va_list va;
 
     va_start(va, txt);
@@ -8,7 +8,7 @@ void write_log(const char * txt, ...){
     va_end(va);
 }
 
-void write_logn(const char * txt, ...){
+void log_writen(const char * txt, ...){
     va_list va;
 
     va_start(va, txt);

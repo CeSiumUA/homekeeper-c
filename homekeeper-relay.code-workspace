@@ -6,7 +6,10 @@
 	],
 	"settings": {
 		"files.associations": {
-			"main.h": "c"
+			"main.h": "c",
+			"server.h": "c",
+			"types.h": "c",
+			"logger.h": "c"
 		}
 	}
 }

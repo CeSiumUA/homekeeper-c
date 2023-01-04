@@ -4,7 +4,13 @@ int main(void){
 
     if(!initialize_tlbot()){
         destroy_bot();
-        write_logn("bot initialization failed, exiting");
+        log_writen("bot initialization failed, exiting");
+        return -1;
+    }
+
+    if(!server_init()){
+        close_server();
+        log_writen("socket initialization failed, exiting");
         return -1;
     }
 
@@ -15,4 +21,5 @@ int main(void){
 
 void free_resources(void){
     destroy_bot();
+    server_close();
 }

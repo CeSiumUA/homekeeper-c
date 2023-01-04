@@ -11,7 +11,7 @@ bool initialize_tlbot(void){
     telebot_error_e create_err = telebot_create(&handle, token);
 
     if(create_err != TELEBOT_ERROR_NONE){
-        write_logn("error creating bot instance, error code: %d", create_err);
+        log_writen("error creating bot instance, error code: %d", create_err);
         telebot_destroy(handle);
         return false;
     }
@@ -23,6 +23,6 @@ void destroy_bot(void){
     telebot_error_e destroy_err = telebot_destroy(handle);
     
     if(destroy_err != TELEBOT_ERROR_NONE){
-        write_logn("failed to properly destroy a bot, error: %d", destroy_err);
+        log_writen("failed to properly destroy a bot, error: %d", destroy_err);
     }
 }
