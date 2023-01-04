@@ -14,6 +14,8 @@ int main(void){
         return -1;
     }
 
+    server_listen();
+
     log_writen("type q to exit a server");
 
     while(1){
