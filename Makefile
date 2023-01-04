@@ -1,5 +1,5 @@
 GCC = gcc
-TLLIB = -ltelebot
+LIBS = -ltelebot -lpthread
 INCLUDES = -Iinc
 CFLAGS = $(INCLUDES) -g -Wall -Werror -o a.out
 SRCS = src/*.c
@@ -9,7 +9,7 @@ SRCS = src/*.c
 all: build
 
 build:
-	$(GCC) $(SRCS) $(CFLAGS) $(TLLIB)
+	$(GCC) $(SRCS) $(CFLAGS) $(LIBS)
 
 clean:
 	rm ./a.out

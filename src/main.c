@@ -9,7 +9,7 @@ int main(void){
     }
 
     if(!server_init()){
-        close_server();
+        server_close();
         log_writen("socket initialization failed, exiting");
         return -1;
     }

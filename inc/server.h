@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <netinet/in.h>
 #include <netdb.h>
+#include <threads.h>
 #include "logger.h"
 
 bool server_init(void);
