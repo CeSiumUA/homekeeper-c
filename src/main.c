@@ -14,6 +14,16 @@ int main(void){
         return -1;
     }
 
+    log_writen("type q to exit a server");
+
+    while(1){
+        char chr;
+        scanf("%c", &chr);
+        if (chr == 'q'){
+            break;
+        }
+    }
+
     free_resources();
 
     return 0;
