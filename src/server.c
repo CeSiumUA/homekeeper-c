@@ -30,7 +30,7 @@ bool server_init(void){
         return false;
     }
 
-    struct sockaddr_in serv_addr, client;
+    struct sockaddr_in serv_addr;
 
     bzero(&serv_addr, sizeof(struct sockaddr_in));
 
@@ -38,7 +38,7 @@ bool server_init(void){
     serv_addr.sin_port = htons(PORT);
     serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
-    if(bind(sockfd, (struct sockaddr*)&client, sizeof(serv_addr)) != 0){
+    if(bind(sockfd, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) != 0){
         log_writen("failed to bind a socket...");
         return false;
     }
@@ -134,6 +134,9 @@ static int process_connection(void *arg){
         int n = read(handle->socket_descriptor, buff, sizeof(buff));
         if(n < 0){
             log_writen("error reading tcp socket");
+            break;
+        }
+        else if(n == 0){
             break;
         }
 
