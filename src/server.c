@@ -135,7 +135,7 @@ static int process_connection(void *arg){
 
     log_writen("handling client connection: from address %s and port %d", addr, handle->client->sin_port);
 
-    char buff[RX_BUFF_SIZE];
+    uint8_t buff[RX_BUFF_SIZE];
     while(1){
         bzero(buff, RX_BUFF_SIZE);
 

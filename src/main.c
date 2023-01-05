@@ -1,6 +1,8 @@
 #include "main.h"
 
 int main(void){
+    
+    storage_init();
 
     if(!initialize_tlbot()){
         destroy_bot();

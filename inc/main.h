@@ -5,6 +5,7 @@
 #include "tlbot.h"
 #include "logger.h"
 #include "server.h"
+#include "storage.h"
 
 void free_resources(void);
 

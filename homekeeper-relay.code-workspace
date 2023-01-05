@@ -9,7 +9,11 @@
 			"main.h": "c",
 			"server.h": "c",
 			"types.h": "c",
-			"logger.h": "c"
+			"logger.h": "c",
+			"config.h": "c",
+			"authorization.h": "c",
+			"processor.h": "c",
+			"storage.h": "c"
 		}
 	}
 }
