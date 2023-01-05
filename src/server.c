@@ -10,12 +10,13 @@ typedef struct client_handler {
     struct client_handler *next;
 } client_handler;
 
-#define PORT    1432
+#define PORT            1432
+#define RX_BUFF_SIZE    2048
 
 static int sockfd;
 static bool is_server_active = true;
 static thrd_t listening_thread;
-static client_handler *client_handlers;
+static client_handler *client_handlers = NULL;
 
 static int accept_connections(void *arg);
 static client_handler * add_client_handler(int descriptor);
@@ -58,6 +59,11 @@ void server_listen(void){
 void server_close(void){
     is_server_active = false;
     shutdown(sockfd, SHUT_RDWR);
+    while(client_handlers != NULL){
+        client_handler *next = client_handlers->next;
+        free(client_handlers);
+        client_handlers = next;
+    }
 }
 
 static int accept_connections(void *arg){
@@ -73,6 +79,7 @@ static int accept_connections(void *arg){
             continue;
         }
         thrd_create(&handler->thread, process_connection, handler);
+        thrd_detach(handler->thread);
     }
 
     return 0;
@@ -118,7 +125,22 @@ static void remove_client_handler(client_handler *handler){
 static int process_connection(void *arg){
     client_handler *handle = (client_handler *)arg;
 
+    log_writen("handling client connection");
 
+    char buff[RX_BUFF_SIZE];
+    while(1){
+        bzero(buff, RX_BUFF_SIZE);
+
+        int n = read(handle->socket_descriptor, buff, sizeof(buff));
+        if(n < 0){
+            log_writen("error reading tcp socket");
+            break;
+        }
+
+        log_writen("got %d bytes from client", n);
+    }
+
+    remove_client_handler(handle);
 
     return 0;
 }
