@@ -7,6 +7,7 @@
 typedef struct client_handler {
     thrd_t thread;
     int socket_descriptor;
+    struct sockaddr_in *client;
     struct client_handler *next;
 } client_handler;
 
@@ -19,7 +20,7 @@ static thrd_t listening_thread;
 static client_handler *client_handlers = NULL;
 
 static int accept_connections(void *arg);
-static client_handler * add_client_handler(int descriptor);
+static client_handler * add_client_handler(int descriptor, struct sockaddr_in *client);
 static int process_connection(void *arg);
 static void remove_client_handler(client_handler *handler);
 
@@ -58,9 +59,10 @@ void server_listen(void){
 
 void server_close(void){
     is_server_active = false;
-    shutdown(sockfd, SHUT_RDWR);
+    close(sockfd);
     while(client_handlers != NULL){
         client_handler *next = client_handlers->next;
+        free(client_handlers->client);
         free(client_handlers);
         client_handlers = next;
     }
@@ -68,12 +70,12 @@ void server_close(void){
 
 static int accept_connections(void *arg){
     while(is_server_active){
-        struct sockaddr_in client;
+        struct sockaddr_in *client = malloc(sizeof(struct sockaddr_in));
         
         unsigned int client_len = sizeof(client);
 
-        int connfd = accept(sockfd, (struct sockaddr*)&client, &client_len);
-        client_handler *handler = add_client_handler(connfd);
+        int connfd = accept(sockfd, (struct sockaddr*)client, &client_len);
+        client_handler *handler = add_client_handler(connfd, client);
         if(connfd < 0){
             log_writen("client accept failed");
             continue;
@@ -85,10 +87,11 @@ static int accept_connections(void *arg){
     return 0;
 }
 
-static client_handler * add_client_handler(int descriptor){
+static client_handler * add_client_handler(int descriptor, struct sockaddr_in *client){
     client_handler *handler = malloc(sizeof(client_handler));
 
     handler->socket_descriptor = descriptor;
+    handler->client = client;
 
     if(client_handlers == NULL){
         client_handlers = handler;
@@ -110,6 +113,7 @@ static void remove_client_handler(client_handler *handler){
     client_handler *previous_handler = client_handlers;
     if(previous_handler == handler){
         client_handlers = handler->next;
+        free(handler->client);
         free(handler);
         return;
     }
@@ -125,7 +129,11 @@ static void remove_client_handler(client_handler *handler){
 static int process_connection(void *arg){
     client_handler *handle = (client_handler *)arg;
 
-    log_writen("handling client connection");
+    char addr[INET_ADDRSTRLEN];
+
+    inet_ntop(AF_INET, &(handle->client->sin_addr), addr, INET_ADDRSTRLEN);
+
+    log_writen("handling client connection: from address %s and port %d", addr, handle->client->sin_port);
 
     char buff[RX_BUFF_SIZE];
     while(1){
