@@ -1,8 +1,8 @@
 GCC = gcc
 LIBS = -ltelebot -lpthread
-INCLUDES = -Iinc
+INCLUDES = -Iinc -Iinc/ed_crypto
 CFLAGS = $(INCLUDES) -g -Wall -Werror -o a.out
-SRCS = src/*.c
+SRCS = src/*.c src/ed_crypto/*.c
 
 .PHONY: build
 
