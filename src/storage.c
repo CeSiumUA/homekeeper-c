@@ -4,7 +4,9 @@
 #define APP_FOLDER_SIZE     2064
 
 static char app_folder[] = "/.homekeeper-arp";
+static char records_folder[] = "/records";
 static char app_folder_absolute[HOME_BUFFER_SIZE + sizeof(app_folder)] = {0};
+static char records_folder_absolute[sizeof(app_folder_absolute) + sizeof(records_folder)] = {0};
 
 static void ensure_dir_created(const char *dir);
 
@@ -18,29 +20,29 @@ void storage_init(void){
     strcat(app_folder_absolute, app_folder);
 
     ensure_dir_created(app_folder_absolute);
+
+    strcat(records_folder_absolute, app_folder_absolute);
+    strcat(records_folder_absolute, records_folder);
+
+    ensure_dir_created(records_folder_absolute);
 }
 
 bool storage_get_pubkey(unsigned long id, client_key *client){
     char separator[] = "/";
-    char file_path[sizeof(app_folder_absolute) + sizeof(id)] = {0};
-    char file_name[sizeof(id)];
+    char file_path[sizeof(records_folder_absolute) + sizeof(id)] = {0};
+    char file_name[sizeof(id)] = {0};
     sprintf(file_name, "%d", id);
-    strcat(file_path, app_folder_absolute);
+    strcat(file_path, records_folder_absolute);
     strcat(file_path, separator);
     strcat(file_path, file_name);
+    
     FILE *fd = fopen(file_path, "r");
     if(fd == NULL){
         fclose(fd);
         return false;
     }
-    //TODO find better approach...
-    size_t read_n = fread(client->public_key, sizeof(uint8_t), sizeof(client->public_key), fd);
-    if(read_n < sizeof(client->public_key)){
-        close(fd);
-        return false;
-    }
-    fscanf(fd, "%lu\n", client->id);
-    fscanf(fd, "%lu\n", client->last_online);
+    
+    fread(client, sizeof(client_key), 1, fd);
 
     fclose(fd);
 
@@ -49,13 +51,18 @@ bool storage_get_pubkey(unsigned long id, client_key *client){
 
 void storage_save_pubkey(client_key *client){
     char separator[] = "/";
-    char file_path[sizeof(app_folder_absolute) + sizeof(id)] = {0};
-    char file_name[sizeof(id)];
-    sprintf(file_name, "%d", id);
-    strcat(file_path, app_folder_absolute);
+    char file_path[sizeof(records_folder_absolute) + sizeof(client -> id)] = {0};
+    char file_name[sizeof(client -> id)] = {0};
+    sprintf(file_name, "%d", client -> id);
+    strcat(file_path, records_folder_absolute);
     strcat(file_path, separator);
     strcat(file_path, file_name);
-    FILE *fd = fopen(file_path, "r");
+
+    FILE *fd = fopen(file_path, "wb");
+
+    fwrite(client, sizeof(client_key), 1, fd);
+
+    fclose(fd);
 }
 
 static void ensure_dir_created(const char *dir){

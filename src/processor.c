@@ -34,4 +34,6 @@ void process_data(const uint8_t *data, size_t data_size){
     }
 
     cl_key.last_online = curr_time;
+
+    storage_save_pubkey(&cl_key);
 }
