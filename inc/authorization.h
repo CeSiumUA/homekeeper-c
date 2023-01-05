@@ -3,6 +3,7 @@
 
 #include "config.h"
 
-void auth_init(void);
+#define PUB_KEY_SIZE        32
+#define PRIVATE_KEY_SIZE    64
 
 #endif
