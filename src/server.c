@@ -149,6 +149,8 @@ static int process_connection(void *arg){
         }
 
         log_writen("got %d bytes from client", n);
+        log_writen("content:");
+        log_writen("%s", buff);
     }
 
     remove_client_handler(handle);
