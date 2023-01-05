@@ -145,5 +145,7 @@ static int process_connection(void *arg){
 
     remove_client_handler(handle);
 
+    log_writen("client disconnected");
+
     return 0;
 }
