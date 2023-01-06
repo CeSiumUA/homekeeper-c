@@ -24,7 +24,7 @@ bool initialize_tlbot(void){
 }
 
 void tlbot_notify(unsigned long id, unsigned long time_diff){
-    uint8_t chat_id_str[CHAT_ID_BUFFER_HANDLE];
+    char chat_id_str[CHAT_ID_BUFFER_HANDLE];
     if(!load_conf_value("TL_CHAT", chat_id_str, CHAT_ID_BUFFER_HANDLE)){
         return;
     }
