@@ -13,6 +13,7 @@
 #include <threads.h>
 #include <arpa/inet.h>
 #include "logger.h"
+#include "processor.h"
 
 bool server_init(void);
 void server_close(void);

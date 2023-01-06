@@ -11,6 +11,7 @@ typedef struct client_key{
     uint8_t public_key[32];
     unsigned long id;
     unsigned long last_online;
+    bool is_notified;
 } client_key;
 
 void storage_init(void);

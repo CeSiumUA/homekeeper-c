@@ -32,8 +32,10 @@ static int notification_runner(void *arg){
 
             ulong diff = time(NULL) - cl_key.last_online;
 
-            if(diff > MAX_TIME_DIFF_MS){
+            if(diff > MAX_TIME_DIFF_MS && !cl_key.is_notified){
                 tlbot_notify(cl_key.id, diff);
+                cl_key.is_notified = true;
+                storage_save_pubkey(&cl_key);
             }
 
             free(records[i]);
