@@ -1,6 +1,6 @@
 #include "notifier.h"
 
-#define MAX_TIME_DIFF_MS        120000
+#define MAX_TIME_DIFF_S        120
 
 static thrd_t ch_thrd;
 static bool is_thrd_active = true;
@@ -32,7 +32,7 @@ static int notification_runner(void *arg){
 
             ulong diff = time(NULL) - cl_key.last_online;
 
-            if(diff > MAX_TIME_DIFF_MS && !cl_key.is_notified){
+            if(diff > MAX_TIME_DIFF_S && !cl_key.is_notified){
                 tlbot_notify(cl_key.id, diff);
                 cl_key.is_notified = true;
                 storage_save_pubkey(&cl_key);

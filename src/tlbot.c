@@ -33,7 +33,7 @@ void tlbot_notify(unsigned long id, unsigned long time_diff){
 
     char message[MESSAGE_SIZE];
 
-    ulong time_diff_mins = time_diff / 60000;
+    ulong time_diff_mins = time_diff / 60;
 
     sprintf(message, "Device %lu is offline for %lu minutes", id, time_diff_mins);
 

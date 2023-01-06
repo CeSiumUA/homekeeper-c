@@ -3,7 +3,7 @@
 #define SIGNATURE_SIZE                  64
 #define ARGUMENT_SIZE                   sizeof(u_long)
 #define ID_SIZE                         sizeof(u_long)
-#define MAX_TIME_DIFF_MS                2000
+#define MAX_TIME_DIFF_S                2
 
 void process_data(const uint8_t *data, size_t data_size){
 
@@ -21,7 +21,7 @@ void process_data(const uint8_t *data, size_t data_size){
 
     time_t diff = labs(curr_time - client_time);
 
-    if(diff > MAX_TIME_DIFF_MS){
+    if(diff > MAX_TIME_DIFF_S){
         return;
     }
 
