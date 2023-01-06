@@ -1,6 +1,8 @@
 #include "tlbot.h"
 
 #define TOKEN_BUFFER_HANDLE     1024
+#define CHAT_ID_BUFFER_HANDLE   32
+#define MESSAGE_SIZE            4096
 
 static telebot_handler_t handle;
 
@@ -19,6 +21,27 @@ bool initialize_tlbot(void){
     }
 
     return true;
+}
+
+void tlbot_notify(unsigned long id, unsigned long time_diff){
+    uint8_t chat_id_str[CHAT_ID_BUFFER_HANDLE];
+    if(!load_conf_value("TL_CHAT", chat_id_str, CHAT_ID_BUFFER_HANDLE)){
+        return;
+    }
+
+    long long chat_id = atoll(chat_id_str);
+
+    char message[MESSAGE_SIZE];
+
+    ulong time_diff_mins = time_diff / 60000;
+
+    sprintf(message, "Device %lu is offline for %lu minutes", id, time_diff_mins);
+
+    telebot_error_e err = telebot_send_message(handle, chat_id, message, "HTML", false, false, -1, "");
+
+    if(err != TELEBOT_ERROR_NONE){
+        log_writen("error sending message to chat");
+    }
 }
 
 void destroy_bot(void){

@@ -31,7 +31,7 @@ bool storage_get_pubkey(unsigned long id, client_key *client){
     char separator[] = "/";
     char file_path[sizeof(records_folder_absolute) + sizeof(id)] = {0};
     char file_name[sizeof(id)] = {0};
-    sprintf(file_name, "%d", id);
+    sprintf(file_name, "%lu", id);
     strcat(file_path, records_folder_absolute);
     strcat(file_path, separator);
     strcat(file_path, file_name);
@@ -53,7 +53,7 @@ void storage_save_pubkey(client_key *client){
     char separator[] = "/";
     char file_path[sizeof(records_folder_absolute) + sizeof(client -> id)] = {0};
     char file_name[sizeof(client -> id)] = {0};
-    sprintf(file_name, "%d", client -> id);
+    sprintf(file_name, "%lu", client -> id);
     strcat(file_path, records_folder_absolute);
     strcat(file_path, separator);
     strcat(file_path, file_name);
@@ -63,6 +63,43 @@ void storage_save_pubkey(client_key *client){
     fwrite(client, sizeof(client_key), 1, fd);
 
     fclose(fd);
+}
+
+char** storage_get_records(int *n){
+    DIR *dir = opendir(records_folder_absolute);
+    if(dir == NULL){
+        return NULL;
+    }
+
+    struct dirent *direntry;
+
+    int allocated_cnt = 10;
+    int files_cnt = 0;
+
+    char **storage = malloc(sizeof(char*) * allocated_cnt);
+
+    while((direntry = readdir(dir)) != NULL){
+        if(direntry->d_type != DT_REG){
+            continue;
+        }
+
+        files_cnt++;
+        if(files_cnt > allocated_cnt){
+            allocated_cnt *= 2;
+            storage = realloc(storage, allocated_cnt);
+        }
+
+        char *file_name = malloc(sizeof(char) * sizeof(direntry->d_name));
+        strcpy(file_name, direntry->d_name);
+
+        storage[files_cnt - 1] = file_name;
+    }
+
+    closedir(dir);
+
+    *n = files_cnt;
+
+    return storage;
 }
 
 static void ensure_dir_created(const char *dir){

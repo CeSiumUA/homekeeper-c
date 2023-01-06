@@ -10,6 +10,8 @@ int main(void){
         return -1;
     }
 
+    notifier_start();
+
     if(!server_init()){
         server_close();
         log_writen("socket initialization failed, exiting");
@@ -36,4 +38,5 @@ int main(void){
 void free_resources(void){
     destroy_bot();
     server_close();
+    notifier_stop();
 }

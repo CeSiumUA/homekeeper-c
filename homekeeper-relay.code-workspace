@@ -13,7 +13,8 @@
 			"config.h": "c",
 			"authorization.h": "c",
 			"processor.h": "c",
-			"storage.h": "c"
+			"storage.h": "c",
+			"notifier.h": "c"
 		}
 	}
 }

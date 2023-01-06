@@ -6,6 +6,7 @@
 #include "logger.h"
 #include "server.h"
 #include "storage.h"
+#include "notifier.h"
 
 void free_resources(void);
 

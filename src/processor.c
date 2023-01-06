@@ -7,9 +7,9 @@
 
 void process_data(const uint8_t *data, size_t data_size){
 
-    char id[ID_SIZE];
-    char argument[ARGUMENT_SIZE];
-    char signature[SIGNATURE_SIZE];
+    uint8_t id[ID_SIZE];
+    uint8_t argument[ARGUMENT_SIZE];
+    uint8_t signature[SIGNATURE_SIZE];
 
     memcpy(id, data, ID_SIZE);
     memcpy(argument, data + ID_SIZE, ARGUMENT_SIZE);

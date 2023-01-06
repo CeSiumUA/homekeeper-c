@@ -8,6 +8,7 @@
 #include "config.h"
 
 bool initialize_tlbot(void);
+void tlbot_notify(unsigned long id, unsigned long time_diff);
 void destroy_bot(void);
 
 #endif
