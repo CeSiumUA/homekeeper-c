@@ -8,7 +8,8 @@
 #include "config.h"
 
 bool initialize_tlbot(void);
-void tlbot_notify(unsigned long id, unsigned long time_diff);
+void tlbot_notify_device_offline(unsigned long id, unsigned long time_diff);
+void tlbot_notify_device_back_online(unsigned long id);
 void destroy_bot(void);
 
 #endif

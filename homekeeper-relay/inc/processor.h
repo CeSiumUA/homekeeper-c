@@ -3,6 +3,7 @@
 
 #include "config.h"
 #include "storage.h"
+#include "tlbot.h"
 #include "ed_crypto/ed25519.h"
 #include <time.h>
 #include <math.h>

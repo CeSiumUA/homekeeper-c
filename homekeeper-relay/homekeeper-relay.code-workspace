@@ -14,7 +14,8 @@
 			"authorization.h": "c",
 			"processor.h": "c",
 			"storage.h": "c",
-			"notifier.h": "c"
+			"notifier.h": "c",
+			"tlbot.h": "c"
 		}
 	}
 }
