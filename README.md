@@ -28,6 +28,8 @@ $ cd homekeeper-relay/
 $ make
 ```
 
+Also, telegram chat id and bot token should be provided via environment variables TL_CHAT and TL_TOKEN respectively, or via file .TL_CHAT and .TL_TOKEN
+
 #### Building client
 
 ```
