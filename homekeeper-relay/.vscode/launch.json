@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/a.out",
+            "program": "${workspaceFolder}/homekeeper-relay",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",

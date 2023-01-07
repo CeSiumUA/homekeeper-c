@@ -2,7 +2,7 @@
     "makefile.launchConfigurations": [
         {
             "cwd": "/home/fedir/projects/homekeeper-client",
-            "binaryPath": "/home/fedir/projects/homekeeper-client/a.out",
+            "binaryPath": "/home/fedir/projects/homekeeper-client/homekeeper-client",
             "files.associations": {},
             "binaryArgs": []
         }

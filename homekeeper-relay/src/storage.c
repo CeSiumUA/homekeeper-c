@@ -3,7 +3,7 @@
 #define HOME_BUFFER_SIZE    2048
 #define APP_FOLDER_SIZE     2064
 
-static char app_folder[] = "/.homekeeper-arp";
+static char app_folder[] = "/.homekeeper-relay";
 static char records_folder[] = "/records";
 static char app_folder_absolute[HOME_BUFFER_SIZE + sizeof(app_folder)] = {0};
 static char records_folder_absolute[sizeof(app_folder_absolute) + sizeof(records_folder)] = {0};

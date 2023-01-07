@@ -19,6 +19,7 @@ int main(int argc, char *argv[]){
 
     if(getopt(argc, argv, "g") != -1){
         generate_server_file();
+        return 0;
     }
 
     start_sender();

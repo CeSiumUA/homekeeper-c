@@ -1,6 +1,6 @@
 GCC = gcc
 INCLUDES = -Iinc -Iinc/ed_crypto
-CFLAGS = $(INCLUDES) -g -Wall -Werror -o a.out
+CFLAGS = $(INCLUDES) -g -Wall -Werror -o homekeeper-client
 SRCS = src/*.c src/ed_crypto/*.c
 
 .PHONY: build
@@ -11,4 +11,4 @@ build:
 	$(GCC) $(SRCS) $(CFLAGS)
 
 clean:
-	rm ./a.out
+	rm ./homekeeper-client

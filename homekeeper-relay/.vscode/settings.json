@@ -2,7 +2,7 @@
     "makefile.launchConfigurations": [
         {
             "cwd": "/home/fedir/projects/homekeeper-relay",
-            "binaryPath": "/home/fedir/projects/homekeeper-relay/a.out",
+            "binaryPath": "/home/fedir/projects/homekeeper-relay/homekeeper-relay",
             "files.associations": {
                 "config.h": "c",
                 "logger.h": "c",
