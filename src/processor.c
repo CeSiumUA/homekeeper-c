@@ -21,6 +21,8 @@ void process_data(const uint8_t *data, size_t data_size){
 
     time_t diff = labs(curr_time - client_time);
 
+    log_writen("time diff: %lu", diff);
+
     if(diff > MAX_TIME_DIFF_S){
         return;
     }
@@ -30,6 +32,7 @@ void process_data(const uint8_t *data, size_t data_size){
     storage_get_pubkey(*(u_long *)id, &cl_key);
 
     if(!ed25519_verify(signature, argument, sizeof(argument), cl_key.public_key)){
+        log_writen("ed25519 signature missmatch...");
         return;
     }
 
