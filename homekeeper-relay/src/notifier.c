@@ -1,6 +1,6 @@
 #include "notifier.h"
 
-#define MAX_TIME_DIFF_S        120
+#define MAX_TIME_DIFF_S        300
 
 static thrd_t ch_thrd;
 static bool is_thrd_active = true;
