@@ -3,7 +3,7 @@
 #define SIGNATURE_SIZE                  64
 #define ARGUMENT_SIZE                   sizeof(u_long)
 #define ID_SIZE                         sizeof(u_long)
-#define MAX_TIME_DIFF_S                2
+#define MAX_TIME_DIFF_S                 2
 
 void process_data(const uint8_t *data, size_t data_size){
 
