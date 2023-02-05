@@ -1,6 +1,8 @@
 #include "main.h"
 
 int main(void){
+
+    log_writen("homekeeper relay is going to initialize...");
     
     storage_init();
 
@@ -20,15 +22,9 @@ int main(void){
 
     server_listen();
 
-    log_writen("type q to exit a server");
+    log_writen("going to endless loop...");
 
-    while(1){
-        char chr;
-        scanf("%c", &chr);
-        if (chr == 'q'){
-            break;
-        }
-    }
+    while(1){}
 
     free_resources();
 
