@@ -69,6 +69,7 @@ void server_close(void){
 }
 
 static int accept_connections(void *arg){
+    log_writen("starting listener");
     while(is_server_active){
         struct sockaddr_in *client = malloc(sizeof(struct sockaddr_in));
         
@@ -149,7 +150,6 @@ static int process_connection(void *arg){
         }
 
         log_writen("got %d bytes from client", n);
-        log_writen("content:");
         log_writen("%s", buff);
 
         process_data(buff, n);

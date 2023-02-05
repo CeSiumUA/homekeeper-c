@@ -29,12 +29,19 @@ void process_data(const uint8_t *data, size_t data_size){
 
     client_key cl_key;
 
-    storage_get_pubkey(*(u_long *)id, &cl_key);
+    if(!storage_get_pubkey(*(u_long *)id, &cl_key)){
+        log_writen("error reading public key");
+        return;
+    }
+
+    log_writen("public key found");
 
     if(!ed25519_verify(signature, argument, sizeof(argument), cl_key.public_key)){
         log_writen("ed25519 signature missmatch...");
         return;
     }
+
+    log_writen("ed25519 signature verified");
 
     cl_key.last_online = curr_time;
 
