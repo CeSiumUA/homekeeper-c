@@ -1,7 +1,7 @@
 # homekeeper
 
 This peoject is created in order to get notifications about electricity/internet outage on the home server. `homekeeper-client` - app that runs on home server (named client), `homekeeper-relay` - app that runs on the remote server (as for instance, cloud or VPS).
-Client periodically sends requests on the relay, while relay accepts requests, and updates `last_online` field for client record. If the client was last online more than 2 minutes ago, the notification is sent in Telegram via bot.
+Client periodically sends requests on the relay, while relay accepts requests, and updates `last_online` field for client record. If the client was last online more than 5 minutes ago, the notification is sent in Telegram via bot.
 
 
 For security reason, the client-relay communication is conducted with ed25519 signature, which is verified on the relay side. The ed25519 implementations are stored in folders `ed_crypto`, and are taken from: [this repo](https://github.com/orlp/ed25519).
