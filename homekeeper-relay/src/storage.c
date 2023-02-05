@@ -36,9 +36,10 @@ bool storage_get_pubkey(unsigned long id, client_key *client){
     strcat(file_path, separator);
     strcat(file_path, file_name);
     
+    log_writen("opening public key file: %s", file_path);
     FILE *fd = fopen(file_path, "r");
     if(fd == NULL){
-        fclose(fd);
+        log_writen("public key file not found");
         return false;
     }
     
