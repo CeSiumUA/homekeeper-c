@@ -3,10 +3,15 @@
 #define SIGNATURE_SIZE                  64
 #define ARGUMENT_SIZE                   sizeof(u_long)
 #define ID_SIZE                         sizeof(u_long)
+#define PACKET_LENGTH                   SIGNATURE_SIZE + ARGUMENT_SIZE + ID_SIZE
 #define MAX_TIME_DIFF_S                 2
 
 void process_data(const uint8_t *data, size_t data_size){
 
+    if(data_size != PACKET_LENGTH){
+        log_writen("packet is less than expected %lu bytes long", PACKET_LENGTH);
+        return;
+    }
     uint8_t id[ID_SIZE];
     uint8_t argument[ARGUMENT_SIZE];
     uint8_t signature[SIGNATURE_SIZE];
