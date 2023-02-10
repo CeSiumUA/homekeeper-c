@@ -31,6 +31,10 @@ bool server_init(void){
         return false;
     }
 
+    int opt = 1;
+
+    setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(int));
+
     struct sockaddr_in serv_addr;
 
     bzero(&serv_addr, sizeof(struct sockaddr_in));
