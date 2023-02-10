@@ -24,7 +24,12 @@ int main(void){
 
     log_writen("going to endless loop...");
 
-    while(1){}
+    while (1){
+        struct timespec ts = {.tv_sec = 1};
+        thrd_sleep(&ts, NULL);
+    }
+
+    log_writen("finished");
 
     free_resources();
 
