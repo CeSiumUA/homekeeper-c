@@ -154,7 +154,6 @@ static int process_connection(void *arg){
         }
 
         log_writen("got %d bytes from client", n);
-        log_writen("%s", buff);
 
         process_data(buff, n);
     }
