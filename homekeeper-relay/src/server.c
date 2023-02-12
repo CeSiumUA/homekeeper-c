@@ -85,6 +85,7 @@ static int accept_connections(void *arg){
             log_writen("client accept failed");
             continue;
         }
+        log_writen("client accepted, launching processing thread");
         thrd_create(&handler->thread, process_connection, handler);
         thrd_detach(handler->thread);
     }
@@ -128,7 +129,22 @@ static void remove_client_handler(client_handler *handler){
     }
 
     previous_handler->next = handler->next;
+    free(handler->client);
     free(handler);
+}
+
+static void count_handlers_queue(void){
+
+    log_writen("counting handlers...");
+    int cnt = 0;
+    client_handler *hndl = client_handlers;
+
+    while(hndl != NULL){
+        hndl = hndl->next;
+        cnt++;
+    }
+
+    log_writen("total handlers count: %d", cnt);
 }
 
 static int process_connection(void *arg){
@@ -158,7 +174,11 @@ static int process_connection(void *arg){
         process_data(buff, n);
     }
 
+    count_handlers_queue();
+
     remove_client_handler(handle);
+
+    count_handlers_queue();
 
     log_writen("client disconnected");
 
