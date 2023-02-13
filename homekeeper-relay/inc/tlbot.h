@@ -9,5 +9,6 @@
 
 void tlbot_notify_device_offline(unsigned long id, unsigned long time_diff);
 void tlbot_notify_device_back_online(unsigned long id);
+void tlbot_notify_service_started(void);
 
 #endif

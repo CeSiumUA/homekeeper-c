@@ -18,6 +18,8 @@ int main(void){
 
     log_writen("going to endless loop...");
 
+    tlbot_notify_service_started();
+
     while (1){
         struct timespec ts = {.tv_sec = 1};
         thrd_sleep(&ts, NULL);
