@@ -6,12 +6,6 @@ int main(void){
     
     storage_init();
 
-    if(!initialize_tlbot()){
-        destroy_bot();
-        log_writen("bot initialization failed, exiting");
-        return -1;
-    }
-
     notifier_start();
 
     if(!server_init()){
@@ -37,7 +31,6 @@ int main(void){
 }
 
 void free_resources(void){
-    destroy_bot();
     server_close();
     notifier_stop();
 }
