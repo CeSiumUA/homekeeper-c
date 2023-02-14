@@ -1,0 +1,15 @@
+[Unit]
+Description=Homekeeper server
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Restart=always
+RestartSec=1
+Type=simple
+User=root
+WorkingDirectory=/usr/local/bin
+ExecStart=/usr/bin/env ./homekeeper-relay
+
+[Install]
+WantedBy=multi-user.target
