@@ -18,7 +18,7 @@ static int sockfd;
 static bool is_server_active = true;
 static thrd_t listening_thread;
 static client_handler *client_handlers = NULL;
-static pthread_mutex_t mutex;
+static mtx_t mutex;
 
 static int accept_connections(void *arg);
 static client_handler * add_client_handler(int descriptor, struct sockaddr_in *client);
@@ -51,6 +51,11 @@ bool server_init(void){
 
     if(listen(sockfd, SOMAXCONN) != 0){
         log_writen("failed to listen a socket");
+        return false;
+    }
+
+    if(mtx_init(&mutex, mtx_plain) != thrd_success){
+        log_writen("failed to initialize mutex");
         return false;
     }
 
@@ -97,7 +102,11 @@ static int accept_connections(void *arg){
 
 static client_handler * add_client_handler(int descriptor, struct sockaddr_in *client){
 
-    pthread_mutex_lock(&mutex);
+    log_writen("adding handler...");
+
+    mtx_lock(&mutex);
+
+    log_writen("adding mutex locked");
 
     client_handler *handler = malloc(sizeof(client_handler));
 
@@ -117,14 +126,20 @@ static client_handler * add_client_handler(int descriptor, struct sockaddr_in *c
         handle->next = handler;
     }
 
-    pthread_mutex_unlock(&mutex);
+    mtx_unlock(&mutex);
+
+    log_writen("handler added");
 
     return handler;
 }
 
 static void remove_client_handler(client_handler *handler){
 
-    pthread_mutex_lock(&mutex);
+    log_writen("removing handler...");
+
+    mtx_lock(&mutex);
+
+    log_writen("removal mutex locked");
 
     client_handler *previous_handler = client_handlers;
     if(previous_handler == handler){
@@ -142,7 +157,9 @@ static void remove_client_handler(client_handler *handler){
     free(handler->client);
     free(handler);
 
-    pthread_mutex_unlock(&mutex);
+    mtx_unlock(&mutex);
+
+    log_writen("handler removed");
 }
 
 static void count_handlers_queue(void){
