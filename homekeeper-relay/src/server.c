@@ -26,6 +26,12 @@ static int process_connection(void *arg);
 static void remove_client_handler(client_handler *handler);
 
 bool server_init(void){
+    
+    if(mtx_init(&mutex, mtx_plain) != thrd_success){
+        log_writen("failed to initialize mutex");
+        return false;
+    }
+
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if(sockfd == -1){
         log_writen("error creating a socket...");
@@ -51,11 +57,6 @@ bool server_init(void){
 
     if(listen(sockfd, SOMAXCONN) != 0){
         log_writen("failed to listen a socket");
-        return false;
-    }
-
-    if(mtx_init(&mutex, mtx_plain) != thrd_success){
-        log_writen("failed to initialize mutex");
         return false;
     }
 
