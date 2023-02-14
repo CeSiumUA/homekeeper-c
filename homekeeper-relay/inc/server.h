@@ -11,6 +11,7 @@
 #include <netinet/in.h>
 #include <netdb.h>
 #include <threads.h>
+#include <pthread.h>
 #include <arpa/inet.h>
 #include "logger.h"
 #include "processor.h"

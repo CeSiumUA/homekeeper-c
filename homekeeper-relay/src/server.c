@@ -18,6 +18,7 @@ static int sockfd;
 static bool is_server_active = true;
 static thrd_t listening_thread;
 static client_handler *client_handlers = NULL;
+static pthread_mutex_t mutex;
 
 static int accept_connections(void *arg);
 static client_handler * add_client_handler(int descriptor, struct sockaddr_in *client);
@@ -62,6 +63,7 @@ void server_listen(void){
 }
 
 void server_close(void){
+    log_writen("closing socket");
     is_server_active = false;
     close(sockfd);
     while(client_handlers != NULL){
@@ -94,6 +96,9 @@ static int accept_connections(void *arg){
 }
 
 static client_handler * add_client_handler(int descriptor, struct sockaddr_in *client){
+
+    pthread_mutex_lock(&mutex);
+
     client_handler *handler = malloc(sizeof(client_handler));
 
     handler->socket_descriptor = descriptor;
@@ -112,10 +117,15 @@ static client_handler * add_client_handler(int descriptor, struct sockaddr_in *c
         handle->next = handler;
     }
 
+    pthread_mutex_unlock(&mutex);
+
     return handler;
 }
 
 static void remove_client_handler(client_handler *handler){
+
+    pthread_mutex_lock(&mutex);
+
     client_handler *previous_handler = client_handlers;
     if(previous_handler == handler){
         client_handlers = handler->next;
@@ -131,6 +141,8 @@ static void remove_client_handler(client_handler *handler){
     previous_handler->next = handler->next;
     free(handler->client);
     free(handler);
+
+    pthread_mutex_unlock(&mutex);
 }
 
 static void count_handlers_queue(void){
