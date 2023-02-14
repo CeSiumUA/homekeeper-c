@@ -143,10 +143,16 @@ static void remove_client_handler(client_handler *handler){
     log_writen("removal mutex locked");
 
     client_handler *previous_handler = client_handlers;
+
     if(previous_handler == handler){
         client_handlers = handler->next;
         free(handler->client);
         free(handler);
+
+        mtx_unlock(&mutex);
+
+        log_writen("handler removed");
+
         return;
     }
 
